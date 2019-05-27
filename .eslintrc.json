@@ -1,0 +1,33 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.5"
+    },
+    "import/extensions": [".js", ".jsx"]
+  },
+  "plugins":[
+    "babel"
+  ],
+  "rules": {
+    "babel/new-cap": 1,
+    "babel/no-invalid-this": 2,
+    "babel/object-curly-spacing": 1,
+    "babel/quotes": ["error", "single"],
+    "babel/semi": 1,
+    "babel/no-unused-expressions": 1,
+    "babel/valid-typeof": 1
+  }
+}
