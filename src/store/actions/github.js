@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {incrementRepoProcessCount} from './ui';
 import {githubFetch} from '../../github';
 
@@ -59,6 +61,7 @@ export const fetchOrganization = (organizationName) => (dispatch) => {
 export const fetchAwards = (data) => async (dispatch) => {
   let totalIssues = [];
   let totalCommits = [];
+  let repoTimes = {};
   const response = await githubFetch(data.repos_url);
   if (response.status !== 200) {
     dispatch(fetchAwardsError('ERROR AL OBTENER REPOS'));
@@ -74,35 +77,39 @@ export const fetchAwards = (data) => async (dispatch) => {
 
         // Get commits
         const commits = await fetchCommits(repo, dispatch);
+
+        const firstCommit = commits[commits.length - 1];
+        const lastCommit = commits[0];
+
+        const firstDate = moment(firstCommit.commit.author.date);
+        const lastDate = moment(lastCommit.commit.author.date);
+
+        repoTimes[repo.name] = {
+          duration: lastDate.diff(firstDate, 'seconds'),
+          name: repo.name,
+          firstDate: firstCommit.commit.author.date,
+          lastDate: lastCommit.commit.author.date
+        };
+
         totalCommits = [...totalCommits, ...commits];
         dispatch(incrementRepoProcessCount());
       })
     );
 
     // Get commits per author
-    const commitAuthors = Object.entries(totalCommits.reduce((acc, commit) => {
+    const commitAuthors = totalCommits.reduce((acc, commit) => {
       const {author} = commit;
       if (author) {
         acc[author.login] = acc[author.login] || {info: author};
         acc[author.login].commits = acc[author.login].commits + 1 || 1;
       }
       return acc;
-    }, {}));
+    }, {});
 
-    const commitAwards = commitAuthors.reduce((acc, curr) => {
-      const [_, data] = curr;
-      const {commits, info} = data;
-      if (commits > acc.topCommitter.commits) {
-        acc.topCommitter = {commits, author: info};
-      }
-      return acc;
-    }, {
-      topCommitter: {
-        commits: 0
-      }
-    });
     dispatch(fetchAwardsSuccess({
-      ...commitAwards
+      totalCommits,
+      commitAuthors,
+      repoTimes
     }));
   }
 };

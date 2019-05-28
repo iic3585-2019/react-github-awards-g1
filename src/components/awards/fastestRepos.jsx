@@ -7,16 +7,17 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import moment from 'moment';
 
-class TopCommitter extends React.Component {
+class FastestRepos extends React.Component {
 
   static propTypes = {
-    commitAuthors: array
+    repoTimes: array
   };
 
   render() {
-    let {commitAuthors} = this.props;
-    commitAuthors = commitAuthors.sort((author, other) => other.commits - author.commits);
+    let {repoTimes} = this.props;
+    repoTimes = repoTimes.sort((repo, other) => repo.duration - other.duration);
     return (
       <Table>
         <TableHead>
@@ -25,25 +26,36 @@ class TopCommitter extends React.Component {
               Usuario
             </TableCell>
             <TableCell>
-              Commits
+              Primer commit
+            </TableCell>
+            <TableCell>
+              Último commit
+            </TableCell>
+            <TableCell>
+              Tiempo entre commits
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {
-            commitAuthors.map(author => <TableRow key={author.info.login}>
+            repoTimes.map((repo) => <TableRow key={repo.name}>
               <TableCell>
                 <Box display="flex" alignItems="center">
-                  <Box mr={2}>
-                    <img className="avatar-img" src={author.info.avatar_url}/>
-                  </Box>
                   <div>
-                    @{author.info.login}
+                    {repo.name}
                   </div>
                 </Box>
               </TableCell>
               <TableCell>
-                {author.commits}
+                {moment(repo.firstDate).format('DD/MM/YYYY')}
+              </TableCell>
+              <TableCell>
+                {moment(repo.lastDate).format('DD/MM/YYYY')}
+              </TableCell>
+              <TableCell>
+                {moment.duration(repo.duration, 'seconds').format('y[y] M[m] d[d] h[h] m[m] s[s]', {
+                  trim: 'both'
+                })}
               </TableCell>
             </TableRow>)
           }
@@ -53,7 +65,7 @@ class TopCommitter extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  commitAuthors: Object.values(state.github.awards.commitAuthors)
+  repoTimes: Object.values(state.github.awards.repoTimes)
 });
 
-export default connect(mapStateToProps)(TopCommitter);
+export default connect(mapStateToProps)(FastestRepos);
