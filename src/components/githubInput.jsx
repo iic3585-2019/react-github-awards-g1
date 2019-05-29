@@ -19,7 +19,7 @@ class GithubInput extends React.Component {
   };
 
   state = {
-    organizationName: 'iic3585-2019'
+    organizationName: ''
   };
 
   render() {
