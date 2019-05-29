@@ -8,10 +8,11 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
-import {faBolt} from '@fortawesome/free-solid-svg-icons';
+import {faBolt, faClock} from '@fortawesome/free-solid-svg-icons';
 
 import TopCommitter from './awards/topCommitter.jsx';
 import FastestRepos from './awards/fastestRepos.jsx';
+import CommitTimes from './awards/commitTimes.jsx';
 
 class Awards extends React.Component {
 
@@ -53,11 +54,17 @@ class Awards extends React.Component {
                   component={Link}
                   label="Fastest repos"
                   icon={<FontAwesomeIcon icon={faBolt}/>}/>
+                <BottomNavigationAction
+                  to="/commit-times"
+                  component={Link}
+                  label="Commit times"
+                  icon={<FontAwesomeIcon icon={faClock}/>}/>
             </BottomNavigation>
           </Grid>
           <Grid item xs>
             <Route path="/" exact component={TopCommitter}/>
             <Route path="/fastest" exact component={FastestRepos}/>
+            <Route path="/commit-times" exact component={CommitTimes}/>
           </Grid>
         </Grid>
       </Router>

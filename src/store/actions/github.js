@@ -62,6 +62,7 @@ export const fetchAwards = (data) => async (dispatch) => {
   let totalIssues = [];
   let totalCommits = [];
   let repoTimes = {};
+  let commitTimes = {};
   const response = await githubFetch(data.repos_url);
   if (response.status !== 200) {
     dispatch(fetchAwardsError('ERROR AL OBTENER REPOS'));
@@ -77,7 +78,6 @@ export const fetchAwards = (data) => async (dispatch) => {
 
         // Get commits
         const commits = await fetchCommits(repo, dispatch);
-
         const firstCommit = commits[commits.length - 1];
         const lastCommit = commits[0];
 
@@ -96,6 +96,15 @@ export const fetchAwards = (data) => async (dispatch) => {
       })
     );
 
+    totalCommits.forEach(commit => {
+      let date = moment(commit.commit.author.date).hour();
+      if (commitTimes[date]) {
+        commitTimes[date] += 1;
+      } else {
+        commitTimes[date] = 1;
+      }
+    });
+
     // Get commits per author
     const commitAuthors = totalCommits.reduce((acc, commit) => {
       const {author} = commit;
@@ -109,7 +118,8 @@ export const fetchAwards = (data) => async (dispatch) => {
     dispatch(fetchAwardsSuccess({
       totalCommits,
       commitAuthors,
-      repoTimes
+      repoTimes,
+      commitTimes
     }));
   }
 };
