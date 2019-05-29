@@ -19,7 +19,7 @@ class GithubInput extends React.Component {
   };
 
   state = {
-    organizationName: 'iic3585-2019'
+    organizationName: ''
   };
 
   render() {
@@ -27,7 +27,7 @@ class GithubInput extends React.Component {
     const {fetchOrganization} = this.props;
 
     return (<Grid container justify="center" alignItems="center">
-      <Grid item xs={12} md={10}>
+      <Grid item xs={6} sm={9}>
         <TextField
           fullWidth
           id="github-organization"
@@ -45,7 +45,7 @@ class GithubInput extends React.Component {
             ),
           }}/>
       </Grid>
-      <Grid item xs={12} md={2}>
+      <Grid item xs={6} sm={3}>
         <Box display="flex" justifyContent="center">
           <Button
             variant="contained"

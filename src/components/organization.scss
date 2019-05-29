@@ -2,4 +2,25 @@
   box-sizing: border-box;
   padding: 0.25rem;
   width: 100%;
+  min-width: 80px;
+  max-width: 90px;
+  min-height: 80px;
+  max-height: 90px;
+}
+
+.info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  .description {
+    display: flex;
+    flex-direction: column;
+  }
+  h2 {
+    margin-left: 20px;
+  }
+  p {
+    margin-left: 20px;
+  } 
 }
