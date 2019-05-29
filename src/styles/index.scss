@@ -16,5 +16,23 @@ html {
 }
 
 #root {
+  margin-top: 25px;
   padding: 2% 8%;
+}
+
+#top-bar {
+  border-bottom: 2px solid rgba(0,0,0,0.07);
+  position: fixed;
+  color: white;
+  background-color: #23282E;
+  padding-left: 40px;
+  height: 40px;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+#top-bar h1 {
+  font-size: 18px;
+  font-weight: lighter;
 }
