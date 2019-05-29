@@ -24,16 +24,15 @@ class Organization extends React.Component {
     return (
       <Grid className="organization" container direction="column">
         <Grid container item xs>
-          <Grid item md={2} xs={1}/>
-          <Grid item md={1} xs={2}>
+          <div className="info">
             <img id="org-avatar" src={avatar_url}/>
-          </Grid>
-          <Grid className='info' item md={9} xs={9}>
-            <h2> {name} </h2>
-            <p>
-              {description}
-            </p>
-          </Grid>
+            <div className="description">
+              <h2> {name} </h2>
+              <p>
+                {description}
+              </p>
+            </div>
+          </div>
         </Grid>
         <Grid item xs>
           <Awards />
