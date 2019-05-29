@@ -18,7 +18,7 @@ class App extends React.Component {
 
   render() {
     const {loading, error} = this.props;
-    return (<Grid container direction="column">
+    return (<Grid className="container" container direction="column">
       <Grid item xs>
         <GithubInput/>
       </Grid>

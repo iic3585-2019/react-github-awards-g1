@@ -24,10 +24,11 @@ class Organization extends React.Component {
     return (
       <Grid className="organization" container direction="column">
         <Grid container item xs>
-          <Grid item xs={2}>
+          <Grid item md={2} xs={1}/>
+          <Grid item md={1} xs={2}>
             <img id="org-avatar" src={avatar_url}/>
           </Grid>
-          <Grid item xs={10}>
+          <Grid className='info' item md={9} xs={9}>
             <h2> {name} </h2>
             <p>
               {description}
