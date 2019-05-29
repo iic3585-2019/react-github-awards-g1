@@ -38,7 +38,7 @@ class Awards extends React.Component {
     return (
       <Router>
         <Grid container direction="column">
-          <Grid item>
+          <Grid item xs>
             <BottomNavigation
               showLabels
               value={value}
@@ -55,7 +55,7 @@ class Awards extends React.Component {
                   icon={<FontAwesomeIcon icon={faBolt}/>}/>
             </BottomNavigation>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <Route path="/" exact component={TopCommitter}/>
             <Route path="/fastest" exact component={FastestRepos}/>
           </Grid>

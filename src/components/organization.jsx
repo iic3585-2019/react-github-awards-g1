@@ -35,7 +35,7 @@ class Organization extends React.Component {
             </p>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item xs>
           <Awards />
         </Grid>
       </Grid>
