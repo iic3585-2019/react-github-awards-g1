@@ -7,7 +7,15 @@ import {hot} from 'react-hot-loader/root';
 
 import GithubInput from './githubInput.jsx';
 import Organization from './organization.jsx';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+  palette: {
+    primary:{
+      main: '#2BA846'
+    }
+  }
+});
 
 class App extends React.Component {
 
@@ -18,18 +26,22 @@ class App extends React.Component {
 
   render() {
     const {loading, error} = this.props;
-    return (<Grid className="container" container direction="column">
-      <Grid item xs>
-        <GithubInput/>
+    return (
+      <MuiThemeProvider theme={theme}> 
+        <Grid className="container" container direction="column">
+        <Grid item xs>
+          <GithubInput/>
+        </Grid>
+        <Grid item xs>
+          <Box mt={2} display="flex" justifyContent="center">
+            {loading ? 'Cargando...' : (
+              error ? error : <Organization />
+              )}
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item xs>
-        <Box mt={2} display="flex" justifyContent="center">
-          {loading ? 'Cargando...' : (
-            error ? error : <Organization />
-          )}
-        </Box>
-      </Grid>
-    </Grid>);
+    </MuiThemeProvider>
+   );
   }
 }
 
