@@ -2,11 +2,32 @@
   box-sizing: border-box;
   padding: 0.25rem;
   width: 100%;
+  max-width: 80px;
 }
 
-.info h2 {
-  margin-left: 20px;
+
+@media only screen and (min-width: 1201px) {
+  .info h2 {
+    margin-left: 20px;
+    font-size: 1.7vw;
+  }  
 }
+
+@media only screen and (max-width: 1200px) {
+  .info h2 {
+    margin-left: 20px;
+    font-size: 3vw;
+  }  
+}
+
+@media only screen and (max-width: 600px) {
+  .info h2 {
+    margin-left: 20px;
+    font-size: 4.5vw;
+  }  
+}
+
+
 
 .info p {
   margin-left: 20px;
